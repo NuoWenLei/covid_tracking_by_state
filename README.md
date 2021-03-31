@@ -5,21 +5,21 @@ Create an image joining columns by correlation. The idea is that using a CNN wou
 
 ## Steps
 - Get data from TSA and covid tracking project 
-* TSA: https://www.tsa.gov/coronavirus/passenger-throughput
-* COVID Tracking Project: https://covidtracking.com/data
+  * TSA: https://www.tsa.gov/coronavirus/passenger-throughput
+  * COVID Tracking Project: https://covidtracking.com/data
 
 - Format data into time series
 
 - Create the order of columns to assemble the data into images
-* Use greedy algorithm to create a non-repeating circle order of columns and then remove the least correlated
-* Use 2 pointers on either end, and use greedy algorithm until no columns are left
+  * Use greedy algorithm to create a non-repeating circle order of columns and then remove the least correlated
+  * Use 2 pointers on either end, and use greedy algorithm until no columns are left
 
 - Create Correlation Images (2d numpy arrays) from data
-* See samples in correlation_images folder visualized with PIL
+  * See samples in correlation_images folder visualized with PIL
 
 - Create 2 models for comparison
-* CNN - for processing the correlation images
-* LSTM - for processing the time series data before formatted into images
+  * CNN - for processing the correlation images
+  * LSTM - for processing the time series data before formatted into images
 
 - Do Regression with both models (loss: "mse", optimizer: "adam", metrics: ("mse", "mae"))
 
@@ -154,7 +154,7 @@ _________________________________________________________________
 * Evaluation - loss: 1.2523 - accuracy: 0.6667
 
 ## Conclusion
-The proposed way of preprocessing multi-feature time series data, while seem to yield good results, do come with some inherent flaws.
+The proposed way of preprocessing multi-feature time series data, while it seems to yield good results, do come with some inherent flaws.
 
 Given that the correlation of columns is determined by a greedy algorithm that only looks at the available data,
 the order of features that determine the image's vertical sequence does not adapt with the new incoming data.
@@ -164,7 +164,13 @@ This is especially a problem because this could lead to model overfitting due to
 Therefore, this pipeline with the preprocessing included makes it very easy for overfitting problems to arise,
 so until the problem with rigid column orders is fixed, this model is not quite useful.
 
-So a very possible next step: 
+## Next Steps
 if images can be dynamically generated based on the correlation incorporating new incoming data, the problem of overfitting may be solved.
-However, as seen in the notebook, the testing data was included to generate the correlation order of features.
-Even then, as shown above, there was a major difference in accuracy and loss for the training and evaluating results of the CNN classification model.
+
+However, another problem would arise: the model, whose weights have been trained to expect a certain column order, would produce outlandish results if the column order was changed.
+
+Perhaps the best way of approaching this problem of overfitting would be to completely re-train the model for every interval of time with a new column order that incorporates ALL data, old and new. This would allow the column order to take into account new data while not ruining the input structure of the model.
+
+Or if re-training at set intervals is too resource intensive, you could determine the column order manually through logic. For example, if one column was "rain per day" and another was "seeable distance", you could conclude that these columns would be somewhat correlated given that rain could shorten your seeable distance. This allows the user to be confident in the column order and should allow the machine to essentially get a "head start" of sorts in prediction.
+
+However, please do take all of this with a grain of salt. As you can see from section Classification Results, there was a major difference in accuracy and loss for the training and evaluating results of the CNN classification model. Even with the test data taken into account for when determining the column order, the model still overfitted badly.
