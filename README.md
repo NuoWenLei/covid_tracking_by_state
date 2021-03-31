@@ -33,6 +33,7 @@ Create an image joining columns by correlation. The idea is that using a CNN wou
 
 ## Regression Model Structures
 - CNN MODEL STRUCTURE
+<div>
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -56,8 +57,10 @@ Total params: 193,857
 Trainable params: 193,857
 Non-trainable params: 0
 _________________________________________________________________
+</div>
 
 - LSTM MODEL STRUCTURE
+<div>
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -73,6 +76,7 @@ Total params: 187,593
 Trainable params: 187,593
 Non-trainable params: 0
 _________________________________________________________________
+</div>
 
 ## Regression Results (Both trained for 100 epochs)
 - CNN results
@@ -89,6 +93,7 @@ _________________________________________________________________
 
 ## Classification Model Structures
 - CNN MODEL STRUCTURE
+<div>
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -112,8 +117,10 @@ Total params: 550,212
 Trainable params: 550,212
 Non-trainable params: 0
 _________________________________________________________________
+</div>
 
 - LSTM MODEL STRUCTURE
+<div>
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -129,17 +136,18 @@ Total params: 187,896
 Trainable params: 187,896
 Non-trainable params: 0
 _________________________________________________________________
+</div
 
 ## Classification Results (Both trained for 50 epochs with batch size of 1)
 - CNN Results
 * Training - loss: 0.0646 - accuracy: 0.9913
-![image](https://user-images.githubusercontent.com/46566976/113115703-48636300-923f-11eb-8fad-54e4ed45dd45.png)
+![image](https://user-images.githubusercontent.com/46566976/113117706-4d291680-9241-11eb-90ed-dab86c0cf214.png)
 
 * Evaluation - loss: 0.8493 - accuracy: 0.8000
 
 - LSTM Results
 * Training: loss: 0.2345 - accuracy: 0.9311
-![image](https://user-images.githubusercontent.com/46566976/113115740-531df800-923f-11eb-9991-ba44181eb95b.png)
+![image](https://user-images.githubusercontent.com/46566976/113117729-531ef780-9241-11eb-8f73-35572977e9c1.png)
 
 * Evaluation - loss: 1.2523 - accuracy: 0.6667
 
